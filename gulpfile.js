@@ -24,15 +24,14 @@ gulp.task('clean', function () {
 
 var scripts = {
  b: browserify('./src/index.js', {
-   debug: true
+   debug: false
  }),
  build: function () {
    gutil.log('🕒 ', gutil.colors.yellow('Building Scripts...'));
    return scripts.b
      .transform(babelify)
      .bundle()
-     .on('error', gutil.log.bind(gutil, 'Browserify Error'))
-     // .on('error', gutil.log.bind(gutil, 'Error: '+err))
+     .on('error', gutil.log.bind(gutil, '❌ ', gutil.colors.red('Error:')))
      .pipe(source('bundle.js'))
      .pipe(gulp.dest("./dist"));
  },
